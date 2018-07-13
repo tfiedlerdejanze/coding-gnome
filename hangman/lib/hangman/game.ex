@@ -10,9 +10,7 @@ defmodule Hangman.Game do
 
   def init_game, do: init_game(Dictionary.random_word)
   def init_game(word) do
-    %Game{
-      letters: word |> String.codepoints
-    }
+    %Game{ letters: word |> String.codepoints }
   end
 
   def make_move(game = %{state: state }, _guess) when state in [:won, :lost] do
