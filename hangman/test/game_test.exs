@@ -14,13 +14,13 @@ defmodule GameTest do
   test "game.guess/2 does not change state for :won or :lost game_state" do
     for state <- [:won, :lost] do
       game = Game.init_game() |> Map.put(:state, state)
-      assert ^game = Game.make_move(game, "x")
+      assert {^game, _tally} = Game.make_move(game, "x")
     end
   end
 
   test "first occurence of letter is not already used" do
     game = Game.init_game()
-    game = Game.make_move(game, "x")
+    {game, _tally} = Game.make_move(game, "x")
 
     assert game.state != :already_used
     assert MapSet.size(game.used) == 1
@@ -28,15 +28,15 @@ defmodule GameTest do
 
   test "second occurence of letter is already used" do
     game = Game.init_game()
-    game = Game.make_move(game, "x")
-    game = Game.make_move(game, "x")
+    {game, _tally} = Game.make_move(game, "x")
+    {game, _tally} = Game.make_move(game, "x")
     assert game.state == :already_used
     assert MapSet.size(game.used) == 1
   end
 
   test "a good guess is recognized" do
     game = Game.init_game("wibble")
-    game = Game.make_move(game, "w")
+    {game, _tally} = Game.make_move(game, "w")
 
     assert game.state == :good_guess
     assert game.turns_left == 7
@@ -44,19 +44,19 @@ defmodule GameTest do
 
   test "guessing all letters sets game.state to :won" do
     game = Game.init_game("wibble")
-    game = Game.make_move(game, "w")
+    {game, _tally} = Game.make_move(game, "w")
     assert game.state == :good_guess
     assert game.turns_left == 7
-    game = Game.make_move(game, "i")
+    {game, _tally} = Game.make_move(game, "i")
     assert game.state == :good_guess
     assert game.turns_left == 7
-    game = Game.make_move(game, "b")
+    {game, _tally} = Game.make_move(game, "b")
     assert game.state == :good_guess
     assert game.turns_left == 7
-    game = Game.make_move(game, "l")
+    {game, _tally} = Game.make_move(game, "l")
     assert game.state == :good_guess
     assert game.turns_left == 7
-    game = Game.make_move(game, "e")
+    {game, _tally} = Game.make_move(game, "e")
     assert game.state == :won
     assert game.turns_left == 7
   end
@@ -64,7 +64,7 @@ defmodule GameTest do
   test "bad guess is recognized" do
     game = Game.init_game("wibble")
 
-    game = Game.make_move(game, "x")
+    {game, _tally} = Game.make_move(game, "x")
     assert game.state == :bad_guess
     assert game.turns_left == 6
   end
@@ -72,13 +72,13 @@ defmodule GameTest do
   test "lost game is recognized" do
     game = Game.init_game("w")
 
-    game = Game.make_move(game, "a")
-    game = Game.make_move(game, "b")
-    game = Game.make_move(game, "c")
-    game = Game.make_move(game, "d")
-    game = Game.make_move(game, "e")
-    game = Game.make_move(game, "f")
-    game = Game.make_move(game, "g")
+    {game, _tally} = Game.make_move(game, "a")
+    {game, _tally} = Game.make_move(game, "b")
+    {game, _tally} = Game.make_move(game, "c")
+    {game, _tally} = Game.make_move(game, "d")
+    {game, _tally} = Game.make_move(game, "e")
+    {game, _tally} = Game.make_move(game, "f")
+    {game, _tally} = Game.make_move(game, "g")
     assert game.state == :lost
   end
 end
