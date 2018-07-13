@@ -39,8 +39,8 @@ defmodule TextClient.Player do
     continue(game)
   end
 
-  defp exit_message(game = %State{tally: %{ solution: solution}}, msg) do
-    IO.puts "#{msg}\nThe word is '#{solution}'"
+  defp exit_message(%State{tally: %{ solution: solution}}, msg) do
+    IO.puts "#{msg}\nThe word was '#{solution}'"
     exit(:normal)
   end
 end
