@@ -1,0 +1,6 @@
+<%= display_message(@tally.game_state, @tally.turns_left) %>
+<%= display_letters(@tally.letters) %>
+
+<%= display_form(@tally.game_state, @conn) %>
+
+<%= link("Start again!", to: hangman_path(@conn, :index)) %>
