@@ -1,7 +1,8 @@
 defmodule TextClient.Interact do
   alias TextClient.{State, Player}
 
-  @hangman_server :"hangman@Theos-MBP"
+  # Server name@domain
+  @hangman_server :""
 
   def start() do
     new_game()

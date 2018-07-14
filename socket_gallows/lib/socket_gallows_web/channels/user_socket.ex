@@ -1,9 +1,10 @@
-defmodule GallowsWeb.UserSocket do
+defmodule SocketGallowsWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "hangman:*", GallowsWeb.HangmanChannel
+  channel "hangman:*", SocketGallowsWeb.HangmanChannel
 
+  ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
 
   def connect(_params, socket) do

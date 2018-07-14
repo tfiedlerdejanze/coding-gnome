@@ -22,7 +22,7 @@ defmodule GallowsWeb.HangmanView do
     """)
   end
 
-  def display_used(%{game_state: state}) when state in [:won, :lost], do: ""
+  def display_used(%{game_state: state, solution: solution}) when state in [:won, :lost], do: "The solution was #{solution}"
   def display_used(%{used: letters}), do: Enum.join(letters, ", ")
 
   def display_form(state, _) when state in [:won, :lost], do: ""
