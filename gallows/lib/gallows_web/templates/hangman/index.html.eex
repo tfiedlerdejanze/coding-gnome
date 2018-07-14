@@ -1,2 +1,6 @@
-<h2>Welcome to Hangman</h2>
+<div class="alert alert-info">
+    <p>
+        Welcome to Hangman
+    </p>
+</div>
 <%= button "New Game", to: hangman_path(@conn, :create) %>

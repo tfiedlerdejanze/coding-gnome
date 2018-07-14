@@ -35,10 +35,10 @@ defmodule Hangman.Game do
 
   defp return_with_tally(game), do: {game, tally(game)}
 
+  defp accept_move(game, "", _already_guessed), do: game
   defp accept_move(game, _guess, _already_guessed = true) do
     Map.put(game, :state, :already_used)
   end
-
   defp accept_move(game, guess, _already_guessed) do
     result = Enum.member?(game.letters, guess)
     Map.put(game, :used, MapSet.put(game.used, guess))
@@ -61,7 +61,10 @@ defmodule Hangman.Game do
   end
 
   defp score_guess(game = %{ turns_left: 1 }, _not_good_guess) do
-    Map.put(game, :state, :lost)
+    %{ game |
+      turns_left: 0,
+      state: :lost
+    }
   end
   defp score_guess(game = %{ turns_left: turns_left }, _not_good_guess) do
     %{ game |

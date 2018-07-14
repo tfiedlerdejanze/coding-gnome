@@ -1,6 +1,15 @@
 <%= display_message(@tally.game_state, @tally.turns_left) %>
-<%= display_letters(@tally.letters) %>
 
-<%= display_form(@tally.game_state, @conn) %>
-
-<%= link("Start again!", to: hangman_path(@conn, :index)) %>
+<div class="row">
+    <div class="col-sm-4">
+        <%= render "_gallows.html", left: @tally.turns_left %>
+    </div>
+    <div class="col-sm-8 text-right">
+        <%= display_letters(@tally.letters) %>
+        <%= display_form(@tally.game_state, @conn) %>
+        <%= display_used(@tally) %>
+    </div>
+</div>
+<p class="text-right">
+    <%= link("Start again!", to: hangman_path(@conn, :index)) %>
+</p>
